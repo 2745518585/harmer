@@ -15,10 +15,14 @@ int main(int argc,char **argv)
         quitf(_wa,"Wrong Answer");
     }
     if(p1=="NO") quitf(_ok,"Accepted");
+    if(ouf.eof()) quitp(20,"invaild operation");
     int m=ouf.readInt();
     for(int l=1;l<=m;++l)
     {
-        int x=ouf.readInt(),y=ouf.readInt(),w=0;
+        if(ouf.eof()) quitp(20,"invaild operation");
+        int x=ouf.readInt();
+        if(ouf.eof()) quitp(20,"invaild operation");
+        int y=ouf.readInt(),w=0;
         if(x<1||x>n||y<1||y>n)
         {
             quitp(20,"invaild operation");

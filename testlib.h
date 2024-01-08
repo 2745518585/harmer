@@ -3011,32 +3011,32 @@ NORETURN void InStream::quit(TResult result, const char *msg) {
 
     switch (result) {
         case _ok:
-            errorName = "ok ";
+            errorName = "Accepted | ";
             quitscrS(LightGreen, errorName);
             break;
         case _wa:
-            errorName = "wrong answer ";
+            errorName = "Wrong Answer | ";
             quitscrS(LightRed, errorName);
             break;
         case _pe:
-            errorName = "wrong output format ";
+            errorName = "Presentation Error | ";
             quitscrS(LightRed, errorName);
             break;
         case _fail:
-            errorName = "FAIL ";
+            errorName = "Failed | ";
             quitscrS(LightRed, errorName);
             break;
         case _dirt:
-            errorName = "wrong output format ";
+            errorName = "Presentation Error | ";
             quitscrS(LightCyan, errorName);
             result = _pe;
             break;
         case _points:
-            errorName = "points ";
+            errorName = "Partial ";
             quitscrS(LightYellow, errorName);
             break;
         case _unexpected_eof:
-            errorName = "unexpected eof ";
+            errorName = "Unexpected EOF | ";
             quitscrS(LightCyan, errorName);
             break;
         default:
@@ -3082,6 +3082,15 @@ NORETURN void InStream::quit(TResult result, const char *msg) {
 
     quitscr(LightGray, __testlib_toPrintableMessage(message).c_str());
     std::fprintf(stderr, "\n");
+
+    if (result != _points)
+        std::fprintf(stdout, "%d\n", result == _ok ? 100 : 0);
+    else {
+        if (__testlib_points == std::numeric_limits<float>::infinity())
+            quit(_fail, "Expected points, but infinity found");
+        std::string stringPoints = removeDoubleTrailingZeroes(format("%.10f", __testlib_points));
+        std::fprintf(stdout, "%s\n", stringPoints.c_str());
+    }
 
     inf.close();
     ouf.close();
@@ -4678,10 +4687,10 @@ void registerTestlibCmd(int argc, char *argv[]) {
     testlibMode = _checker;
     __testlib_set_binary(stdin);
 
-    std::vector<std::string> args(1, argv[0]);
+    std::vector<std::string> args({argv[0], "input", "user_out", "answer"});
     checker.initialize();
 
-    for (int i = 1; i < argc; i++) {
+    /*for (int i = 1; i < argc; i++) {
         if (!strcmp("--testset", argv[i])) {
             if (i + 1 < argc && strlen(argv[i + 1]) > 0)
                 checker.setTestset(argv[++i]);
@@ -4694,7 +4703,7 @@ void registerTestlibCmd(int argc, char *argv[]) {
                 quit(_fail, std::string("Expected group after --group command line parameter"));
         } else
             args.push_back(argv[i]);
-    }
+    }*/
 
     argc = int(args.size());
     if (argc > 1 && "--help" == args[1])

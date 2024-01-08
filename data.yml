@@ -1,0 +1,23 @@
+subtasks:
+  - score: 5
+    type: min
+    cases: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  - score: 10
+    type: min
+    cases: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+  - score: 20
+    type: min
+    cases: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  - score: 30
+    type: min
+    cases: [31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+  - score: 35
+    type: min
+    cases: [41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+
+inputFile: '#.in'
+outputFile: '#.out'
+
+specialJudge:
+  language: cpp
+  fileName: chk.cpp

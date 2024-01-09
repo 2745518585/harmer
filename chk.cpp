@@ -1,14 +1,25 @@
 #include<bits/stdc++.h>
 #include"testlib.h"
 using namespace std;
+template<typename S> inline char gc(S &st)
+{
+    return st.eof()?EOF:st.readChar();
+}
+template<typename T,typename S> inline void read(T &x,S &st)
+{
+    T u=1,t=0;char c=gc(st);
+    while(c<'0'||c>'9') {if(c==EOF) return x=0,void(); if(c=='-') u=-1; c=gc(st);}
+    while(c>='0'&&c<='9') t*=10,t+=c-'0',c=gc(st);
+    x=u*t;return;
+}
 const int N=1001;
 int n,a[N],b[N];
 int main(int argc,char **argv)
 {
     registerTestlibCmd(argc,argv);
-    n=inf.readInt();
-    for(int i=1;i<=n;++i) a[i]=inf.readInt();
-    for(int i=1;i<=n;++i) b[i]=inf.readInt();
+    read(n,inf);
+    for(int i=1;i<=n;++i) read(a[i],inf);
+    for(int i=1;i<=n;++i) read(b[i],inf);
     string p1=ans.readToken(),p2=ouf.readToken();
     if(p1!=p2)
     {
@@ -16,13 +27,12 @@ int main(int argc,char **argv)
     }
     if(p1=="NO") quitf(_ok,"Accepted");
     if(ouf.eof()) quitp(20,"invaild operation");
-    int m=ouf.readInt();
+    int m;
+    read(m,ouf);
     for(int l=1;l<=m;++l)
     {
-        if(ouf.eof()) quitp(20,"invaild operation");
-        int x=ouf.readInt();
-        if(ouf.eof()) quitp(20,"invaild operation");
-        int y=ouf.readInt(),w=0;
+        int x,y,w=0;
+        read(x,ouf),read(y,ouf);
         if(x<1||x>n||y<1||y>n)
         {
             quitp(20,"invaild operation");
@@ -50,7 +60,7 @@ int main(int argc,char **argv)
     {
         if(a[i]!=b[i])
         {
-            quitp(20,"Wrong Answer");
+            quitp(20,"invaild operation");
         }
     }
     quitf(_ok,"Accepted");

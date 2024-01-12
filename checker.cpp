@@ -25,7 +25,7 @@ int main(int argc,char **argv)
         ansfile>>x>>y;
         if(x<1||x>n||y<1||y>n)
         {
-            printf("invaild operation");
+            printf("invaild operation on line %d.",l);
             return 1;
         }
         if(x<y)
@@ -33,7 +33,7 @@ int main(int argc,char **argv)
             for(int i=x+1;i<=y;++i) w+=(a[x]<a[i]?1:-1);
             if(w!=0)
             {
-                printf("invaild operation");
+                printf("invaild operation on line %d.",l);
                 return 1;
             }
             for(int i=x+1;i<=y;++i) swap(a[i-1],a[i]);
@@ -43,7 +43,7 @@ int main(int argc,char **argv)
             for(int i=x-1;i>=y;--i) w+=(a[x]<a[i]?1:-1);
             if(w!=0)
             {
-                printf("invaild operation");
+                printf("invaild operation on line %d.",l);
                 return 1;
             }
             for(int i=x-1;i>=y;--i) swap(a[i+1],a[i]);

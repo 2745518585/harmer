@@ -26,43 +26,32 @@ int main(int argc,char **argv)
         quitf(_wa,"Wrong Answer");
     }
     if(p1=="NO") quitf(_ok,"Accepted");
-    if(ouf.eof()) quitp(20,"invaild operation");
+    bool u=true;
     int m;
     read(m,ouf);
     for(int l=1;l<=m;++l)
     {
         int x,y,w=0;
         read(x,ouf),read(y,ouf);
-        if(x<1||x>n||y<1||y>n)
-        {
-            quitp(20,"invaild operation");
-        }
+        if(x<1||x>n||y<1||y>n) u=false;
         if(x<y)
         {
             for(int i=x+1;i<=y;++i) w+=(a[x]<a[i]?1:-1);
-            if(w!=0)
-            {
-                quitp(20,"invaild operation");
-            }
+            if(w!=0) u=false;
             for(int i=x+1;i<=y;++i) swap(a[i-1],a[i]);
         }
         else
         {
             for(int i=x-1;i>=y;--i) w+=(a[x]<a[i]?1:-1);
-            if(w!=0)
-            {
-                quitp(20,"invaild operation");
-            }
+            if(w!=0) u=false;
             for(int i=x-1;i>=y;--i) swap(a[i+1],a[i]);
         }
     }
     for(int i=1;i<=n;++i)
     {
-        if(a[i]!=b[i])
-        {
-            quitp(20,"invaild operation");
-        }
+        if(a[i]!=b[i]) u=false;
     }
-    quitf(_ok,"Accepted");
+    if(u) quitf(_ok,"Accepted");
+    else quitp(20,"invaild operation");
     return 0;
 }

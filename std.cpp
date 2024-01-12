@@ -34,30 +34,37 @@ struct harmer
         }
         return max(x,y);
     }
-    void order_suffix(int n)
+    void order(int n)
     {
-        if(n<=2) return;
         if(a[n-1]<a[n]) return;
-        order_suffix(n-1);
+        order(n-1);
         if(a[n-2]<a[n]&&a[n]<a[n-1]) move(n,n-2);
         if(a[n]<a[n-2]&&a[n-2]<a[n-1]) move(n-2,n);
     }
-    void take_out(int n)
+    void take(int n)
     {
         int x=find(n);
         if(x==n) return;
         if((a[x-1]<a[x])^(a[x-1]<a[x+1])) move(x-1,x+1);
         else move(x+1,x-1);
-        take_out(n);
+        take(n);
     }
     void fix(int n)
     {
-        if(n<=3) return;
-        take_out(n);
+        if(n==1) return;
+        int w=0;
+        for(int i=1;i<=n;++i)
+        {
+            for(int j=i+1;j<=n;++j)
+            {
+                if(a[j]<a[i]) ++w;
+            }
+        }
+        if(w>(n-1)*(n-2)/2) return;
+        take(n);
         if(check(n-1)==false) fix(n-1);
-        if(check(n-1)==false) return;
-        take_out(n-1);
-        order_suffix(n-2);
+        take(n-1);
+        order(n-2);
         if(a[n-3]<a[n-2])
         {
             if(a[n+1]>a[n-1])
@@ -85,7 +92,7 @@ struct harmer
             for(int i=1;i<=n;++i) a[i]=n-a[i]+1;
             u=true;
         }
-        take_out(n);
+        take(n);
         if(check(n-1)==false) fix(n-1);
         solve(n-1);
         if(u)
